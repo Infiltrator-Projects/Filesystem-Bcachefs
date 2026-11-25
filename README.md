@@ -26,6 +26,8 @@ Independent clean single-device images first; unsupported multi-device, encrypti
 
 ## 7. Technical references and provenance
 
+- [Design and qualification reference (PDF)](docs/Bcachefs.pdf) — design-stage reference only, with [editable page source](docs/Bcachefs.pages); not an operational manual.
+
 - [Pinned central source baseline](https://github.com/Infiltrator-Projects/Filesystems/tree/101026021d9088d80b7f0f472d9061f0e2c688a3/native/filesystems/bcachefs)
 - [Native design](native/filesystems/bcachefs/DESIGN.md)
 - [Migration and qualification plan](MIGRATION_STATUS.md)
