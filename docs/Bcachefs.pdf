@@ -136,27 +136,25 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 17 0 R >>
 endobj
 17 0 obj
-<< /Length 2174 >>
+<< /Length 1873 >>
 stream
 0.06 0.15 0.23 rg 0 768 595 74 re f
 1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
 BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
 0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (5. Common key encoding) Tj ET
 0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (A key/value record begins with an 8-bit total size in 64-bit words, a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (format/whiteout byte, and a value-type byte. For little-endian encoding, the low) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (seven bits of the second byte specify format and the highest bit is needs-whiteout.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (Format 0 denotes node-local packing; 1 denotes the current unpacked representation.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (The logical position contains a 64-bit inode, 64-bit offset and 32-bit snapshot ID.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (Additional fields describe extent length and 96-bit version. The unpacked) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (little-endian position orders snapshot, offset and inode in memory, whereas) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (big-endian layouts differ. Key order must follow logical comparison rules, not an) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (arbitrary bytewise comparison. Bound each record by both key-header size and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (containing set length.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 556 Td (The retained format header defines packed key widths and inode/offset/snapshot) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 542 Td (positions. Validate key and value lengths before decoding; nonmonotone keys and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 528 Td (unverified device membership invalidate traversal. Kent Overstreet's 2018 public) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 514 Td (on-disk data structures patch is an early design reference, not a substitute for) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 500 Td (revision-specific feature negotiation.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (format/whiteout byte, and a value-type byte. For little-endian encoding, the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (low seven bits of the second byte specify format and the highest bit is) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (needs-whiteout. Format 0 denotes node-local packing; 1 denotes the current) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (unpacked representation. The logical position contains a 64-bit inode, 64-bit) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (offset and 32-bit snapshot ID. Additional fields describe extent length and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (96-bit version. The unpacked little-endian position orders snapshot, offset and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (inode in memory, whereas big-endian layouts differ. Key order must follow) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (logical comparison rules, not an arbitrary bytewise comparison. Bound each) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (record by both key-header size and containing set length.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 556 Td (Reject nonmonotone keys and unverified device membership during traversal;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 542 Td (record-length and packing checks are defined above and in Node-local packed) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 528 Td (keys.) Tj ET
 0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 6) Tj ET
 endstream
 endobj
@@ -394,30 +392,33 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 39 0 R >>
 endobj
 39 0 obj
-<< /Length 2423 >>
+<< /Length 2702 >>
 stream
 0.06 0.15 0.23 rg 0 768 595 74 re f
 1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
 BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
 0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (16. Validation and source references) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Use the pinned source at https://github.com/torvalds/linux/tree/v6.12/fs/bcachefs) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (and its bcachefs_format.h, sb-members_format.h, extents_format.h, inode_format.h,) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (dirent_format.h, snapshot_format.h, subvolume_format.h and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (alloc_background_format.h definitions. Follow the associated packing, journal) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (replay, checksum, allocation and snapshot implementation for revision-specific) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (algorithms. Compare clean single-device fixtures and then multi-device fixtures) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (against version-matched native tools; test stale generation, conflicting) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (superblocks, truncated typed records, malformed packed keys, whiteouts, shared) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (extents and interrupted relocation. Exact checksum coverage/nonces, varint) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (encoding, hash algorithms, feature upgrades, replay ordering and transactional) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (writer invariants need further algorithm-level validation. This chapter is a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (research reference, not evidence of provider implementation or release) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (qualification.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 514 Td (Early design reference: https://lkml.iu.edu/1805.1/01005.html .) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 490 Td (Retained source:) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 476 Td (https://github.com/Infiltrator-Projects/Filesystems/blob/101026021d9088d80b7f0f472d) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 462 Td (9061f0e2c688a3/native/filesystems/bcachefs/linux/bcachefs_format.h \(blob) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 448 Td (5004f6ba99\).) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Use the pinned source at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (https://github.com/torvalds/linux/tree/v6.12/fs/bcachefs and its) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (bcachefs_format.h, sb-members_format.h, extents_format.h, inode_format.h,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (dirent_format.h, snapshot_format.h, subvolume_format.h and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (alloc_background_format.h definitions. Follow the associated packing, journal) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (replay, checksum, allocation and snapshot implementation for revision-specific) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (algorithms. Compare clean single-device fixtures and then multi-device fixtures) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (against version-matched native tools; test stale generation, conflicting) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (superblocks, truncated typed records, malformed packed keys, whiteouts, shared) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (extents and interrupted relocation. Exact checksum coverage/nonces, varint) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (encoding, hash algorithms, feature upgrades, replay ordering and transactional) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (writer invariants need further algorithm-level validation. This chapter is a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (research reference, not evidence of provider implementation or release) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (qualification.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 500 Td (Early design reference: Kent Overstreet's 2018 public on-disk data structures) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 486 Td (patch, https://lkml.iu.edu/1805.1/01005.html . It does not supersede the pinned) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 472 Td (revision's encoding or feature rules.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 448 Td (Retained source:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 434 Td (https://github.com/Infiltrator-Projects/Filesystems/blob/101026021d9088d80b7f0f) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 420 Td (472d9061f0e2c688a3/native/filesystems/bcachefs/linux/bcachefs_format.h \(blob) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 406 Td (5004f6ba99\).) Tj ET
 0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 17) Tj ET
 endstream
 endobj
@@ -441,30 +442,30 @@ xref
 0000007681 00000 n 
 0000009211 00000 n 
 0000009359 00000 n 
-0000011585 00000 n 
-0000011733 00000 n 
-0000013372 00000 n 
-0000013520 00000 n 
-0000015065 00000 n 
-0000015213 00000 n 
-0000016750 00000 n 
-0000016898 00000 n 
-0000018470 00000 n 
-0000018618 00000 n 
-0000020414 00000 n 
-0000020562 00000 n 
-0000022326 00000 n 
-0000022474 00000 n 
-0000023988 00000 n 
-0000024136 00000 n 
-0000025799 00000 n 
-0000025947 00000 n 
-0000027706 00000 n 
-0000027854 00000 n 
-0000029602 00000 n 
-0000029750 00000 n 
+0000011284 00000 n 
+0000011432 00000 n 
+0000013071 00000 n 
+0000013219 00000 n 
+0000014764 00000 n 
+0000014912 00000 n 
+0000016449 00000 n 
+0000016597 00000 n 
+0000018169 00000 n 
+0000018317 00000 n 
+0000020113 00000 n 
+0000020261 00000 n 
+0000022025 00000 n 
+0000022173 00000 n 
+0000023687 00000 n 
+0000023835 00000 n 
+0000025498 00000 n 
+0000025646 00000 n 
+0000027405 00000 n 
+0000027553 00000 n 
+0000029301 00000 n 
+0000029449 00000 n 
 trailer
 << /Size 40 /Root 1 0 R >>
 startxref
-32225
+32203
 %%EOF

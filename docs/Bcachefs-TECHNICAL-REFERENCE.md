@@ -20,7 +20,7 @@ In v6.12 the field type IDs include journal 0, members_v1 1, crypt 2, replicas_v
 
 A key/value record begins with an 8-bit total size in 64-bit words, a format/whiteout byte, and a value-type byte. For little-endian encoding, the low seven bits of the second byte specify format and the highest bit is needs-whiteout. Format 0 denotes node-local packing; 1 denotes the current unpacked representation. The logical position contains a 64-bit inode, 64-bit offset and 32-bit snapshot ID. Additional fields describe extent length and 96-bit version. The unpacked little-endian position orders snapshot, offset and inode in memory, whereas big-endian layouts differ. Key order must follow logical comparison rules, not an arbitrary bytewise comparison. Bound each record by both key-header size and containing set length.
 
-The retained format header defines packed key widths and inode/offset/snapshot positions. Validate key and value lengths before decoding; nonmonotone keys and unverified device membership invalidate traversal. Kent Overstreet's 2018 public on-disk data structures patch is an early design reference, not a substitute for revision-specific feature negotiation.
+Reject nonmonotone keys and unverified device membership during traversal; record-length and packing checks are defined above and in Node-local packed keys.
 
 ## Node-local packed keys
 
@@ -66,6 +66,6 @@ The independent provider uses Common V2: https://github.com/Infiltrator-Projects
 
 Use the pinned source at https://github.com/torvalds/linux/tree/v6.12/fs/bcachefs and its bcachefs_format.h, sb-members_format.h, extents_format.h, inode_format.h, dirent_format.h, snapshot_format.h, subvolume_format.h and alloc_background_format.h definitions. Follow the associated packing, journal replay, checksum, allocation and snapshot implementation for revision-specific algorithms. Compare clean single-device fixtures and then multi-device fixtures against version-matched native tools; test stale generation, conflicting superblocks, truncated typed records, malformed packed keys, whiteouts, shared extents and interrupted relocation. Exact checksum coverage/nonces, varint encoding, hash algorithms, feature upgrades, replay ordering and transactional writer invariants need further algorithm-level validation. This chapter is a research reference, not evidence of provider implementation or release qualification.
 
-Early design reference: https://lkml.iu.edu/1805.1/01005.html .
+Early design reference: Kent Overstreet's 2018 public on-disk data structures patch, https://lkml.iu.edu/1805.1/01005.html . It does not supersede the pinned revision's encoding or feature rules.
 
 Retained source: https://github.com/Infiltrator-Projects/Filesystems/blob/101026021d9088d80b7f0f472d9061f0e2c688a3/native/filesystems/bcachefs/linux/bcachefs_format.h (blob 5004f6ba99).
