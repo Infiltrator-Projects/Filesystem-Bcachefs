@@ -3,7 +3,7 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R 44 0 R 46 0 R 48 0 R 50 0 R 52 0 R 54 0 R 56 0 R 58 0 R 60 0 R 62 0 R 64 0 R 66 0 R] /Count 31 >>
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R] /Count 17 >>
 endobj
 3 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
@@ -18,917 +18,453 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R >>
 endobj
 7 0 obj
-<< /Length 1283 >>
+<< /Length 1675 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Scope and design) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Bcachefs, developed by Kent Overstreet, evolved from bcache's) Tj
-T* (storage-management techniques into a copy-on-write filesystem. It entered the) Tj
-T* (Linux kernel in version 6.7. This reference is pinned to Linux v6.12, rather) Tj
-T* (than treating later metadata revisions as interchangeable. Its three) Tj
-T* (principal persistent structures are the superblock, journal and B-trees.) Tj
-T* (Extents, inode records, directory entries, allocation state and snapshot) Tj
-T* (relationships are represented by typed keys in different trees. Large nodes) Tj
-T* (contain appendable sorted key sets; new node allocations and journal replay) Tj
-T* (preserve consistent metadata ordering. This is not an ext4-style block-group) Tj
-T* (filesystem. The source version defines the scope, and later format versions) Tj
-T* (require independent study.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 1 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 18 Tf 43 736 Td (Contents) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 711 Td (1. Scope and design) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 695 Td (2. Superblock discovery and layout) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 679 Td (3. Superblock prefix and extension fields) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 663 Td (4. Typed superblock sections and membership) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 647 Td (5. Common key encoding) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 631 Td (6. Node-local packed keys) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 615 Td (7. Node and key-set organisation) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 599 Td (8. Tree lookup and effective state) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 583 Td (9. Extent pointers and logical mapping) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 567 Td (10. Checksums, compression and redundancy) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 551 Td (11. Inodes, names and attributes) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 535 Td (12. Snapshot and subvolume records) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 519 Td (13. Bucket allocation and relocation) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 503 Td (14. Journal and crash consistency) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 487 Td (15. Implementation and qualification boundary) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 471 Td (16. Validation and source references) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 1) Tj ET
 endstream
 endobj
 8 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R >>
 endobj
 9 0 obj
-<< /Length 1177 >>
+<< /Length 1595 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Superblock discovery and layout) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Addresses use 512-byte sectors unless a field explicitly specifies another) Tj
-T* (unit. The default superblock begins at sector 8 \(byte 4096\). A layout record) Tj
-T* (begins at sector 7 \(byte 3584\), and is also embedded in each superblock. Its) Tj
-T* (offsets are: magic UUID at byte 0, layout type at 16, maximum size exponent) Tj
-T* (at 17, copy count at 18, five padding bytes at 19, and 61 little-endian) Tj
-T* (64-bit sector locations at 24. Its total size is 512 bytes. A maximum size) Tj
-T* (exponent of 16 corresponds to 32 MiB; validate the bound, count and all copy) Tj
-T* (ranges before reading. Backup copies need not be at fixed offsets. Never) Tj
-T* (assume all devices have identical journal locations.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 2 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (1. Scope and design) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Bcachefs, developed by Kent Overstreet, evolved from bcache's storage-management) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (techniques into a copy-on-write filesystem. It entered the Linux kernel in version) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (6.7. This reference is pinned to Linux v6.12, rather than treating later metadata) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (revisions as interchangeable. Its three principal persistent structures are the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (superblock, journal and B-trees. Extents, inode records, directory entries,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (allocation state and snapshot relationships are represented by typed keys in) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (different trees. Large nodes contain appendable sorted key sets; new node) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (allocations and journal replay preserve consistent metadata ordering. This is not) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (an ext4-style block-group filesystem. The source version defines the scope, and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (later format versions require independent study.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 2) Tj ET
 endstream
 endobj
 10 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R >>
 endobj
 11 0 obj
-<< /Length 1310 >>
+<< /Length 1407 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Superblock prefix and extension fields) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(The superblock begins with a 16-byte checksum, two 16-bit format versions at) Tj
-T* (offsets 16 and 18, four reserved bytes at 20, magic UUID at 24, internal UUID) Tj
-T* (at 40 and user UUID at 56. The label follows. Subsequent fields record the) Tj
-T* (physical superblock sector, sequence number, filesystem block size, member) Tj
-T* (index and count, extension size, time base and precision, flags, write time,) Tj
-T* (incompatible features, compatibility features and embedded layout.) Tj
-T* (Version_min describes the oldest metadata encoding still present, not merely) Tj
-T* (the desired version. After the fixed header, variable records start with a) Tj
-T* (little-endian 32-bit total length in 64-bit words and a 32-bit type. A zero) Tj
-T* (length, out-of-range record or unknown required feature must prevent unsafe) Tj
-T* (interpretation.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 3 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (2. Superblock discovery and layout) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Addresses use 512-byte sectors unless a field explicitly specifies another unit.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (The default superblock begins at sector 8 \(byte 4096\). A layout record begins at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (sector 7 \(byte 3584\), and is also embedded in each superblock. Its offsets are:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (magic UUID at byte 0, layout type at 16, maximum size exponent at 17, copy count at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (18, five padding bytes at 19, and 61 little-endian 64-bit sector locations at 24.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (Its total size is 512 bytes. A maximum size exponent of 16 corresponds to 32 MiB;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (validate the bound, count and all copy ranges before reading. Backup copies need) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (not be at fixed offsets. Never assume all devices have identical journal locations.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 3) Tj ET
 endstream
 endobj
 12 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 13 0 R >>
 endobj
 13 0 obj
-<< /Length 1199 >>
+<< /Length 1622 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Typed superblock sections and membership) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(In v6.12 the field type IDs include journal 0, members_v1 1, crypt 2,) Tj
-T* (replicas_v0 3, quota 4, disk groups 5, clean 6, replicas 7, journal blacklist) Tj
-T* (8, journal_v2 9, counters 10, members_v2 11, errors 12, extension 13 and) Tj
-T* (downgrade 14. Member records start with a UUID at 0, bucket count at 16,) Tj
-T* (first bucket at 24 and bucket size in sectors at 26. Validate record size) Tj
-T* (according to the relevant members section version. Combine sector, bucket and) Tj
-T* (device identity before any media access. Select consistent checksum-valid) Tj
-T* (superblocks, taking sequence and membership into account; a high sequence) Tj
-T* (number on a mismatched device is not evidence of a newer coherent filesystem.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 4 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (3. Superblock prefix and extension fields) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (The superblock begins with a 16-byte checksum, two 16-bit format versions at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (offsets 16 and 18, four reserved bytes at 20, magic UUID at 24, internal UUID at 40) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (and user UUID at 56. The label follows. Subsequent fields record the physical) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (superblock sector, sequence number, filesystem block size, member index and count,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (extension size, time base and precision, flags, write time, incompatible features,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (compatibility features and embedded layout. Version_min describes the oldest) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (metadata encoding still present, not merely the desired version. After the fixed) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (header, variable records start with a little-endian 32-bit total length in 64-bit) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (words and a 32-bit type. A zero length, out-of-range record or unknown required) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (feature must prevent unsafe interpretation.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 4) Tj ET
 endstream
 endobj
 14 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 15 0 R >>
 endobj
 15 0 obj
-<< /Length 1249 >>
+<< /Length 1478 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Common key encoding) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(A key/value record begins with an 8-bit total size in 64-bit words, a) Tj
-T* (format/whiteout byte, and a value-type byte. For little-endian encoding, the) Tj
-T* (low seven bits of the second byte specify format and the highest bit is) Tj
-T* (needs-whiteout. Format 0 denotes node-local packing; 1 denotes the current) Tj
-T* (unpacked representation. The logical position contains a 64-bit inode, 64-bit) Tj
-T* (offset and 32-bit snapshot ID. Additional fields describe extent length and) Tj
-T* (96-bit version. The unpacked little-endian position orders snapshot, offset) Tj
-T* (and inode in memory, whereas big-endian layouts differ. Key order must follow) Tj
-T* (logical comparison rules, not an arbitrary bytewise comparison. Bound each) Tj
-T* (record by both key-header size and containing set length.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 5 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (4. Typed superblock sections and membership) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (In v6.12 the field type IDs include journal 0, members_v1 1, crypt 2, replicas_v0) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (3, quota 4, disk groups 5, clean 6, replicas 7, journal blacklist 8, journal_v2 9,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (counters 10, members_v2 11, errors 12, extension 13 and downgrade 14. Member) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (records start with a UUID at 0, bucket count at 16, first bucket at 24 and bucket) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (size in sectors at 26. Validate record size according to the relevant members) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (section version. Combine sector, bucket and device identity before any media) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (access. Select consistent checksum-valid superblocks, taking sequence and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (membership into account; a high sequence number on a mismatched device is not) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (evidence of a newer coherent filesystem.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 5) Tj ET
 endstream
 endobj
 16 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 17 0 R >>
 endobj
 17 0 obj
-<< /Length 1267 >>
+<< /Length 2174 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Node-local packed keys) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Each B-tree node contains a 56-byte packing description: key length in 64-bit) Tj
-T* (words at 0, field count at 1, six field widths at 2, and six little-endian) Tj
-T* (64-bit base offsets at 8. The field order is inode, offset, snapshot, size,) Tj
-T* (version high and version low. Packed data begins after the 24-bit common) Tj
-T* (prefix; it represents field values relative to the format's bases. Decode) Tj
-T* (using the specified bit ordering and node byte-order state, validate widths) Tj
-T* (and check addition overflow. Do not mistake the in-memory padding of a) Tj
-T* (packed-key C structure for persistent record length. A zero-width field is a) Tj
-T* (constant represented by its base. The upstream bkey packing routines are) Tj
-T* (necessary references for exact bit extraction, byte-swapping and comparison.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 6 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (5. Common key encoding) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (A key/value record begins with an 8-bit total size in 64-bit words, a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (format/whiteout byte, and a value-type byte. For little-endian encoding, the low) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (seven bits of the second byte specify format and the highest bit is needs-whiteout.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (Format 0 denotes node-local packing; 1 denotes the current unpacked representation.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (The logical position contains a 64-bit inode, 64-bit offset and 32-bit snapshot ID.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (Additional fields describe extent length and 96-bit version. The unpacked) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (little-endian position orders snapshot, offset and inode in memory, whereas) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (big-endian layouts differ. Key order must follow logical comparison rules, not an) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (arbitrary bytewise comparison. Bound each record by both key-header size and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (containing set length.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 556 Td (The retained format header defines packed key widths and inode/offset/snapshot) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 542 Td (positions. Validate key and value lengths before decoding; nonmonotone keys and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 528 Td (unverified device membership invalidate traversal. Kent Overstreet's 2018 public) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 514 Td (on-disk data structures patch is an early design reference, not a substitute for) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 500 Td (revision-specific feature negotiation.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 6) Tj ET
 endstream
 endobj
 18 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 19 0 R >>
 endobj
 19 0 obj
-<< /Length 1222 >>
+<< /Length 1587 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Node and key-set organisation) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(A B-tree node header has a 16-byte checksum, 64-bit magic at 16, 64-bit flags) Tj
-T* (at 24, closed minimum and maximum key positions at 32 and 52, an obsolete) Tj
-T* (eight-byte pointer at 72, and the packing description at 80. In the v6.12) Tj
-T* (layout the first key-set header follows at 136. The node flags encode tree ID) Tj
-T* (in bits 0..3 and 9..24, tree level in 4..7 and node sequence in 32..63.) Tj
-T* (Key-set headers hold sequence at 0, journal sequence at 8, flags at 16,) Tj
-T* (version at 20 and payload length in 64-bit words at 22. Later node writes) Tj
-T* (start with a checksum followed by a key-set header rather than repeating the) Tj
-T* (entire node header. Validate sector offsets, checksums, key bounds, child) Tj
-T* (level and parent ranges.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 7 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (6. Node-local packed keys) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Each B-tree node contains a 56-byte packing description: key length in 64-bit words) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (at 0, field count at 1, six field widths at 2, and six little-endian 64-bit base) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (offsets at 8. The field order is inode, offset, snapshot, size, version high and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (version low. Packed data begins after the 24-bit common prefix; it represents field) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (values relative to the format's bases. Decode using the specified bit ordering and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (node byte-order state, validate widths and check addition overflow. Do not mistake) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (the in-memory padding of a packed-key C structure for persistent record length. A) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (zero-width field is a constant represented by its base. The upstream bkey packing) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (routines are necessary references for exact bit extraction, byte-swapping and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (comparison.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 7) Tj ET
 endstream
 endobj
 20 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 21 0 R >>
 endobj
 21 0 obj
-<< /Length 1214 >>
+<< /Length 1493 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Tree lookup and effective state) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Tree IDs include extents 0, inodes 1, directory entries 2, extended) Tj
-T* (attributes 3 and allocation 4. Each tree admits specific value tags. Internal) Tj
-T* (pointers lead to child nodes; leaves hold typed records. Individual appended) Tj
-T* (sets are sorted, but the effective node is a merge of its valid sets. Apply) Tj
-T* (native overwrite, deletion and whiteout rules and ignore sets whose journal) Tj
-T* (dependency is not durable under recovery rules. A reader cannot simply) Tj
-T* (concatenate sets or choose the first match. Descend only through a validated) Tj
-T* (root and consistent child ranges, detect cycles and cap depth and node sizes.) Tj
-T* (Reconstruct the effective records before calculating allocation or directory) Tj
-T* (contents.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 8 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (7. Node and key-set organisation) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (A B-tree node header has a 16-byte checksum, 64-bit magic at 16, 64-bit flags at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (24, closed minimum and maximum key positions at 32 and 52, an obsolete eight-byte) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (pointer at 72, and the packing description at 80. In the v6.12 layout the first) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (key-set header follows at 136. The node flags encode tree ID in bits 0..3 and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (9..24, tree level in 4..7 and node sequence in 32..63. Key-set headers hold) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (sequence at 0, journal sequence at 8, flags at 16, version at 20 and payload length) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (in 64-bit words at 22. Later node writes start with a checksum followed by a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (key-set header rather than repeating the entire node header. Validate sector) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (offsets, checksums, key bounds, child level and parent ranges.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 8) Tj ET
 endstream
 endobj
 22 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 23 0 R >>
 endobj
 23 0 obj
-<< /Length 1248 >>
+<< /Length 1485 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Extent pointers and logical mapping) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(An extent key offset represents the exclusive logical end in sectors; its) Tj
-T* (size gives the sector length. The start is end minus size, provided) Tj
-T* (subtraction does not underflow. The little-endian eight-byte extent pointer) Tj
-T* (has type at bit 0, cached at 1, unused at 2, unwritten at 3, 44-bit sector) Tj
-T* (offset at 4..47, device index at 48..55 and generation at 56..63. Decode the) Tj
-T* (tagged extent-entry stream; pointer, checksum, stripe and rebalance records) Tj
-T* (have different lengths and roles. For an ordinary uncompressed extent with) Tj
-T* (logical end 112, size 8 and physical start 1000, logical sector 106 is at) Tj
-T* (device sector 1002 \(byte 513024\). Do not apply this formula directly to) Tj
-T* (compressed, shared, inline or unwritten records.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 9 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (8. Tree lookup and effective state) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Tree IDs include extents 0, inodes 1, directory entries 2, extended attributes 3) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (and allocation 4. Each tree admits specific value tags. Internal pointers lead to) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (child nodes; leaves hold typed records. Individual appended sets are sorted, but) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (the effective node is a merge of its valid sets. Apply native overwrite, deletion) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (and whiteout rules and ignore sets whose journal dependency is not durable under) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (recovery rules. A reader cannot simply concatenate sets or choose the first match.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (Descend only through a validated root and consistent child ranges, detect cycles) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (and cap depth and node sizes. Reconstruct the effective records before calculating) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (allocation or directory contents.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 9) Tj ET
 endstream
 endobj
 24 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 25 0 R >>
 endobj
 25 0 obj
-<< /Length 1390 >>
+<< /Length 1520 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Checksums, compression and redundancy) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Checksum descriptors encode compressed and uncompressed sizes, logical) Tj
-T* (offset, checksum algorithm, compression algorithm and, where present, nonce.) Tj
-T* (The CRC32 descriptor occupies eight bytes, CRC64 sixteen bytes and CRC128) Tj
-T* (twenty-four bytes in the pinned definitions; their bit widths differ.) Tj
-T* (Interpret encoded size conventions using the format accessors, not raw counts) Tj
-T* (assumed to be bytes. A descriptor applies to subsequent associated pointers) Tj
-T* (according to the extent stream rules. Verify the stored representation and) Tj
-T* (decompress the admitted algorithm before extracting the logical interval.) Tj
-T* (Cached replicas are not equivalent to durable required copies. Generation) Tj
-T* (checks prevent stale references after bucket reuse. Multi-device) Tj
-T* (erasure-coded stripes and encrypted data need their own validated) Tj
-T* (reconstruction and authentication paths.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 10 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (9. Extent pointers and logical mapping) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (An extent key offset represents the exclusive logical end in sectors; its size) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (gives the sector length. The start is end minus size, provided subtraction does not) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (underflow. The little-endian eight-byte extent pointer has type at bit 0, cached at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (1, unused at 2, unwritten at 3, 44-bit sector offset at 4..47, device index at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (48..55 and generation at 56..63. Decode the tagged extent-entry stream; pointer,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (checksum, stripe and rebalance records have different lengths and roles. For an) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (ordinary uncompressed extent with logical end 112, size 8 and physical start 1000,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (logical sector 106 is at device sector 1002 \(byte 513024\). Do not apply this) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (formula directly to compressed, shared, inline or unwritten records.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 10) Tj ET
 endstream
 endobj
 26 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 27 0 R >>
 endobj
 27 0 obj
-<< /Length 1358 >>
+<< /Length 1744 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Inodes, names and attributes) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Inode values have multiple revisions. The v3 value begins with six) Tj
-T* (little-endian 64-bit fields: journal sequence, hash seed, flags, sectors,) Tj
-T* (logical byte size and version. The variable field area begins at byte 48 in) Tj
-T* (the initial v3 layout; decode its start and field count through flags.) Tj
-T* (Variable fields represent timestamps, ownership, link counts, generation,) Tj
-T* (data options and subvolume information; they are not a fixed array of native) Tj
-T* (C integers. Directory values begin with an eight-byte target inode, or two) Tj
-T* (32-bit subvolume identifiers for a subvolume entry, followed by type at) Tj
-T* (offset 8 and name at 9. The tree position derives from parent identity and) Tj
-T* (name hashing. Lookup must use the inode hash seed and selected algorithm,) Tj
-T* (resolve collisions, apply snapshot visibility and compare the actual bounded) Tj
-T* (name.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 11 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (10. Checksums, compression and redundancy) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Checksum descriptors encode compressed and uncompressed sizes, logical offset,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (checksum algorithm, compression algorithm and, where present, nonce. The CRC32) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (descriptor occupies eight bytes, CRC64 sixteen bytes and CRC128 twenty-four bytes) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (in the pinned definitions; their bit widths differ. Interpret encoded size) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (conventions using the format accessors, not raw counts assumed to be bytes. A) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (descriptor applies to subsequent associated pointers according to the extent stream) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (rules. Verify the stored representation and decompress the admitted algorithm) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (before extracting the logical interval. Cached replicas are not equivalent to) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (durable required copies. Generation checks prevent stale references after bucket) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (reuse. Multi-device erasure-coded stripes and encrypted data need their own) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (validated reconstruction and authentication paths.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 11) Tj ET
 endstream
 endobj
 28 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 29 0 R >>
 endobj
 29 0 obj
-<< /Length 1182 >>
+<< /Length 1712 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Snapshot and subvolume records) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(A v6.12 snapshot value contains little-endian 32-bit flags at 0, parent at 4,) Tj
-T* (two children at 8 and 12, subvolume at 16, tree ID at 20, depth at 24, three) Tj
-T* (skip references at 28, 32 and 36, and 128-bit birth time at 40. Deleted and) Tj
-T* (subvolume flags occupy bits 0 and 1. A subvolume value has flags at 0,) Tj
-T* (snapshot ID at 4, root inode at 8, creation parent at 16, filesystem-path) Tj
-T* (parent at 20 and 128-bit origin time at 24. These parent relationships are) Tj
-T* (different. A snapshot-aware lookup considers ancestry and whiteouts, not) Tj
-T* (merely the numerically highest snapshot ID. Shared extents and historical) Tj
-T* (records remain allocated until all references are safely retired.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 12 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (11. Inodes, names and attributes) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Inode values have multiple revisions. The v3 value begins with six little-endian) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (64-bit fields: journal sequence, hash seed, flags, sectors, logical byte size and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (version. The variable field area begins at byte 48 in the initial v3 layout; decode) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (its start and field count through flags. Variable fields represent timestamps,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (ownership, link counts, generation, data options and subvolume information; they) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (are not a fixed array of native C integers. Directory values begin with an) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (eight-byte target inode, or two 32-bit subvolume identifiers for a subvolume entry,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (followed by type at offset 8 and name at 9. The tree position derives from parent) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (identity and name hashing. Lookup must use the inode hash seed and selected) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (algorithm, resolve collisions, apply snapshot visibility and compare the actual) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (bounded name.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 12) Tj ET
 endstream
 endobj
 30 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 31 0 R >>
 endobj
 31 0 obj
-<< /Length 1298 >>
+<< /Length 1462 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Bucket allocation and relocation) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(The allocator manages buckets on each member device. For a physical sector p) Tj
-T* (and bucket size b, bucket index is floor\(p/b\), and the in-bucket position is) Tj
-T* (p modulo b. Check first_bucket, member size and generation. An allocation_v4) Tj
-T* (value begins with journal sequence at 0, flags at 8, generation at 12, oldest) Tj
-T* (generation at 13, data type at 14, stripe redundancy at 15, dirty sectors at) Tj
-T* (16 and cached sectors at 20. Backpointers link physical ownership to logical) Tj
-T* (tree records. A cleaner relocates live data and updates pointers,) Tj
-T* (backpointers, usage and generation through ordered metadata transactions) Tj
-T* (before reuse. Do not equate an unreferenced current-view block with a free) Tj
-T* (bucket; snapshots, pending journal state, cache and replicas can all affect) Tj
-T* (reuse.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 13 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (12. Snapshot and subvolume records) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (A v6.12 snapshot value contains little-endian 32-bit flags at 0, parent at 4, two) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (children at 8 and 12, subvolume at 16, tree ID at 20, depth at 24, three skip) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (references at 28, 32 and 36, and 128-bit birth time at 40. Deleted and subvolume) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (flags occupy bits 0 and 1. A subvolume value has flags at 0, snapshot ID at 4, root) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (inode at 8, creation parent at 16, filesystem-path parent at 20 and 128-bit origin) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (time at 24. These parent relationships are different. A snapshot-aware lookup) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (considers ancestry and whiteouts, not merely the numerically highest snapshot ID.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (Shared extents and historical records remain allocated until all references are) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (safely retired.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 13) Tj ET
 endstream
 endobj
 32 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 33 0 R >>
 endobj
 33 0 obj
-<< /Length 1345 >>
+<< /Length 1611 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Journal and crash consistency) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(A journal set starts with checksum at 0, magic at 16, sequence at 24, format) Tj
-T* (version at 32, flags at 36, payload word count at 40, read/write clocks at 44) Tj
-T* (and 46, and oldest dirty sequence at 48. Entries begin at 56; each entry) Tj
-T* (header has a 16-bit payload word count, tree ID, tree level, type and three) Tj
-T* (reserved bytes. Journal records include key updates, roots and sequence) Tj
-T* (blacklist information. Recovery determines the valid sequence window, rejects) Tj
-T* (invalid records, obtains consistent roots and applies admitted key updates in) Tj
-T* (order. The clean superblock field can hold root and journal state; its) Tj
-T* (presence is not permission to skip consistency validation. Checksummed) Tj
-T* (metadata and flush ordering are separate requirements. No arbitrary repair or) Tj
-T* (transaction replay should be performed on the source image.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 14 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (13. Bucket allocation and relocation) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (The allocator manages buckets on each member device. For a physical sector p and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (bucket size b, bucket index is floor\(p/b\), and the in-bucket position is p modulo) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (b. Check first_bucket, member size and generation. An allocation_v4 value begins) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (with journal sequence at 0, flags at 8, generation at 12, oldest generation at 13,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (data type at 14, stripe redundancy at 15, dirty sectors at 16 and cached sectors at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (20. Backpointers link physical ownership to logical tree records. A cleaner) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (relocates live data and updates pointers, backpointers, usage and generation) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (through ordered metadata transactions before reuse. Do not equate an unreferenced) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (current-view block with a free bucket; snapshots, pending journal state, cache and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (replicas can all affect reuse.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 14) Tj ET
 endstream
 endobj
 34 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 35 0 R >>
 endobj
 35 0 obj
-<< /Length 1489 >>
+<< /Length 1707 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Validation and source references) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Use the pinned source at) Tj
-T* (https://github.com/torvalds/linux/tree/v6.12/fs/bcachefs and its) Tj
-T* (bcachefs_format.h, sb-members_format.h, extents_format.h, inode_format.h,) Tj
-T* (dirent_format.h, snapshot_format.h, subvolume_format.h and) Tj
-T* (alloc_background_format.h definitions. Follow the associated packing, journal) Tj
-T* (replay, checksum, allocation and snapshot implementation for) Tj
-T* (revision-specific algorithms. Compare clean single-device fixtures and then) Tj
-T* (multi-device fixtures against version-matched native tools; test stale) Tj
-T* (generation, conflicting superblocks, truncated typed records, malformed) Tj
-T* (packed keys, whiteouts, shared extents and interrupted relocation. Exact) Tj
-T* (checksum coverage/nonces, varint encoding, hash algorithms, feature upgrades,) Tj
-T* (replay ordering and transactional writer invariants need further) Tj
-T* (algorithm-level validation. This chapter is a research reference, not) Tj
-T* (evidence of provider implementation or release qualification.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 15 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (14. Journal and crash consistency) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (A journal set starts with checksum at 0, magic at 16, sequence at 24, format) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (version at 32, flags at 36, payload word count at 40, read/write clocks at 44 and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (46, and oldest dirty sequence at 48. Entries begin at 56; each entry header has a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (16-bit payload word count, tree ID, tree level, type and three reserved bytes.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (Journal records include key updates, roots and sequence blacklist information.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (Recovery determines the valid sequence window, rejects invalid records, obtains) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (consistent roots and applies admitted key updates in order. The clean superblock) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (field can hold root and journal state; its presence is not permission to skip) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (consistency validation. Checksummed metadata and flush ordering are separate) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (requirements. No arbitrary repair or transaction replay should be performed on the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (source image.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 15) Tj ET
 endstream
 endobj
 36 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 37 0 R >>
 endobj
 37 0 obj
-<< /Length 600 >>
+<< /Length 1696 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (Bcachefs - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 16 Tf 50 715 Td (Historical reference appendices) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(The following pages preserve both earlier documents. Their dated status) Tj
-T* (claims do not establish current implementation or qualification.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 16 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (15. Implementation and qualification boundary) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (The independent provider uses Common V2:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (https://github.com/Infiltrator-Projects/Libraries/blob/main/docs/FILESYSTEM_COMMON_) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (ABI_V2.md . Negotiate actual operation masks and media profiles. Distinguish) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (unsupported, corrupt, I/O and stale-handle results. Require bounded host I/O,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (exclusive unmounted ownership and durable flush before mutation. Test Media and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (Defragmenter consume the same engine, not separate format parsers. Hosted and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (freestanding binaries, relocation, recovery, BOOT, kernel integration and packages) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (require separate exact-source evidence. Current support belongs to the repository) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (README and qualification records. The intended package paths are) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (/System/Filesystems/ and /System/Resources/Documentation/; the reference is not an) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (installation or release-status claim.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 16) Tj ET
 endstream
 endobj
 38 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 39 0 R >>
 endobj
 39 0 obj
-<< /Length 1645 >>
+<< /Length 2423 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 01) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (HISTORY / ORIGINAL DESIGN / DISK FORMAT) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Copy-on-write local filesystem; single-device support first. This is a design) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (contract, not a claim of implemented capabilities.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 630 Tm (Native provider design and original-format reference. No independent runtime) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 614 Tm (provider has yet been qualified.) Tj ET
-BT /F2 11 Tf 0.02 0.50 0.55 rg 1 0 0 1 50 584 Tm (CONCEPTUAL MEDIA MAP - NOT A SECTOR MAP) Tj ET
-0.05 0.36 0.47 rg 50 507 238 62 re f
-BT /F2 11 Tf 1 1 1 rg 1 0 0 1 62 533 Tm (Superblock) Tj ET
-0.05 0.36 0.47 rg 301 507 238 62 re f
-BT /F2 11 Tf 1 1 1 rg 1 0 0 1 313 533 Tm (B-tree keys) Tj ET
-0.05 0.36 0.47 rg 50 431 238 62 re f
-BT /F2 11 Tf 1 1 1 rg 1 0 0 1 62 457 Tm (Allocation references) Tj ET
-0.05 0.36 0.47 rg 301 431 238 62 re f
-BT /F2 11 Tf 1 1 1 rg 1 0 0 1 313 457 Tm (Data extents) Tj ET
-BT /F2 10 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 404 Tm (History / architecture / allocation / integrity / implementation / tests) Tj ET
-endstream
-endobj
-40 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 41 0 R >>
-endobj
-41 0 obj
-<< /Length 1353 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 02) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (HISTORICAL CHRONOLOGY) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Bcachefs developed from bcache storage into a copy-on-write filesystem. Kent) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (Overstreet's 2018 on-disk data structures patch is an early public) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (engineering reference; later format revisions require feature negotiation.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 614 Tm (The historic format and the InfiltratorOS implementation are distinct. An) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 598 Tm (external driver or archival utility is evidence, not a qualified production) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 582 Tm (provider.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 552 Tm (https://lkml.iu.edu/1805.1/01005.html) Tj ET
-endstream
-endobj
-42 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 43 0 R >>
-endobj
-43 0 obj
-<< /Length 1122 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 03) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (ORIGINAL ON-DISK ARCHITECTURE) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Superblock and feature negotiation; bkey/B-tree ordering, extents,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (allocation/backpointers, checksums, journal, snapshots/subvolumes and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (device/replica layout. The single native C/C++ engine owns these format) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (semantics; consumers provide bounded Common V2 host services, never competing) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (parsers.) Tj ET
-endstream
-endobj
-44 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 45 0 R >>
-endobj
-45 0 obj
-<< /Length 1408 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 04) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (ALLOCATION, INTEGRITY AND RECOVERY) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Validate key ordering, node ranges, checksums and extent ownership; reject) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (unavailable devices, unsupported compression/encryption and unsafe journal) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (state. CoW and backpointer consistency must survive interruption before) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (mutation is enabled. All arithmetic, offsets and lengths are checked before) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (I/O. Writable operations require exclusive access, explicit ordering, flush) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (and interruption/recovery evidence. Read-only operations leave the medium) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 580 Tm (unchanged.) Tj ET
-endstream
-endobj
-46 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 47 0 R >>
-endobj
-47 0 obj
-<< /Length 1811 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 05) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (DISK READ PATH / SOURCE EVIDENCE) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Original editable source) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (\(https://github.com/Infiltrator-Projects/Filesystems/blob/101026021d9088d80b7) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (f0f472d9061f0e2c688a3/native/filesystems/bcachefs/linux/bcachefs_format.h\)) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (\(blob 5004f6ba99...\). The pinned format header describes packed bkeys, key) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (widths, inode/offset/snapshot positions and variable-sized values. Decode and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (validate key length before reading values; reject non-monotone keys and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 580 Tm (arithmetic overflow. Validate superblock field boundaries and device) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 564 Tm (membership before tree walks. Single-device clean snapshots precede) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 548 Tm (multi-device, replica, encryption, compression, and journal replay support;) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 532 Tm (never reclaim an extent while any snapshot/backpointer retains it.) Tj ET
-endstream
-endobj
-48 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 49 0 R >>
-endobj
-49 0 obj
-<< /Length 1548 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 06) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (COMMON V2 IMPLEMENTATION BOUNDARY) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Only infiltrator_filesystem_api_v2 is public. Target the genuine) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (PROBE/MOUNT/UNMOUNT/STAT/LIST/READ operations first; negotiate actual) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (supported operation masks. VOLUME, METADATA and DEFRAG operations \(including) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (MAP, PLAN, EXECUTE, VERIFY, RECOVER\) are individually qualified or refused.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (Test Media uses the same provider's qualified format and namespace) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (operations. No FUSE, legacy ABI, private driver or kernel proxy. Hosted and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 580 Tm (import-free freestanding profiles share the format engine, with generic) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 564 Tm (environment-specific host services.) Tj ET
-endstream
-endobj
-50 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 51 0 R >>
-endobj
-51 0 obj
-<< /Length 1845 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 07) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (ENGINEERING ACCEPTANCE / HOST I/O) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (- A valid CORE descriptor with a real PROBE is mandatory. Every optional) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (operation has its own capability bit and non-null qualified callback;) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (unavailable operations have neither. Recognised format, unsupported feature,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (corruption, host I/O failure and stale handles remain distinct outcomes.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 598 Tm (- Use Common's sector-aligned bounded byte helpers. Validate partition) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 582 Tm (extent, logical/physical sector geometry and maximum transfer before reading.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 566 Tm (Serialize overlapping read/modify/write sectors; request explicit flush) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 550 Tm (barriers. Never infer exclusivity from flags alone; require real exclusive) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 534 Tm (unmounted ownership before formatting or raw mutation. Require the Common) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 518 Tm (entropy service when the format needs a unique identity.) Tj ET
-endstream
-endobj
-52 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 53 0 R >>
-endobj
-53 0 obj
-<< /Length 1979 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 08) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (CONSUMERS / RELOCATION / TEST MEDIA) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (- Qualify hosted and import-free freestanding profiles separately; enforce) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (module identity and trust, exact export set and actual packaged bytes. BOOT) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (and kernel are generic loaders; BOOT uses the same file in) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (/EFI/InfiltratorOS/BOOT/drivers_x64/, with the installed canonical copy in) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (/System/Filesystems/. No per-format .ko/.efi, FUSE, proxy, legacy ABI,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (external formatter or consumer-side parsing substitutes for the engine.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 566 Tm (- Test Media must format and populate through actual V2 FORMAT/CREATE/WRITE) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 550 Tm (operations; an independent formatter/reader may be a test oracle only, never) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 534 Tm (production fallback. Defragmentation maps, plans, execution, verification and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 518 Tm (recovery require independent proof of ownership, data preservation and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 502 Tm (interruption safety. Where not implemented they remain absent.) Tj ET
-endstream
-endobj
-54 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 55 0 R >>
-endobj
-55 0 obj
-<< /Length 1399 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 09) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (VALIDATION, RECOVERY AND COMPATIBILITY) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (Exercise independent clean single-device images, B-tree levels,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (sparse/extents, snapshot visibility, unsupported incompatibility flags,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (missing devices and damaged checksums. Compare file bytes against an) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (independent oracle, hash unchanged read-only images, inject short I/O,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (corruption and interruption; validate exact published module separately in) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (BOOT and kernel. Use disposable media only. No new independent binary or test) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 580 Tm (pass is claimed.) Tj ET
-endstream
-endobj
-56 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 57 0 R >>
-endobj
-57 0 obj
-<< /Length 2184 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 10) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (BUILD, INSTALLATION AND RELEASE) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (The target installation is /System/Filesystems/BCACHEFS.so and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 660 Tm (/System/Resources/Documentation/Filesystem-Bcachefs.pdf. Neither file is) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 644 Tm (currently distributed by this repository. Once the implementation qualifies,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 628 Tm (the intended release is a portable amd64 DEB and CPU-native source-first RUN,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 612 Tm (with GitHub's automatic source archive. No install or build command is) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (advertised before an executable build exists.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 566 Tm (- New build and implementation code is native C/C++ and shell as appropriate,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 550 Tm (no Python. The generic amd64 DEB and CPU-native source-downloading RUN are) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 534 Tm (the only manually published release assets; GitHub generates source archives.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 518 Tm (RUN fetches exact versioned source and pinned Common dependency, verifies) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 502 Tm (integrity, compiles natively and installs the selected package; no source) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 486 Tm (archive or DEB embedded. Release immutable exact-main qualification only. No) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 470 Tm (release exists yet.) Tj ET
-endstream
-endobj
-58 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 59 0 R >>
-endobj
-59 0 obj
-<< /Length 2335 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / ORIGINAL FILESYSTEM HISTORY AND DESIGN) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (Bcachefs) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs / engineering reference) Tj ET
-BT /F1 8 Tf 0.07 0.16 0.23 rg 1 0 0 1 512 34 Tm (PAGE 11) Tj ET
-BT /F2 14 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 711 Tm (PRIMARY SOURCES AND IMPLEMENTATION STATUS) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 676 Tm (https://lkml.iu.edu/1805.1/01005.html) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 646 Tm () Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 630 Tm (https://github.com/Infiltrator-Projects/Filesystems/tree/101026021d9088d80b7f) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 614 Tm (0f472d9061f0e2c688a3/native/filesystems/bcachefs) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 584 Tm () Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 568 Tm (https://github.com/Infiltrator-Projects/Libraries/blob/main/docs/FILESYSTEM_C) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 552 Tm (OMMON_ABI_V2.md) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 522 Tm (Independent clean single-device images first; unsupported multi-device,) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 506 Tm (encryption and recovery states must be rejected. Compare independent payloads) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 490 Tm (and unchanged-image hashes; inject truncation, corruption and I/O faults.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 474 Tm (Establish exact-revision ABI, hosted and import-free freestanding) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 458 Tm (qualification, then independently test BOOT and kernel integration. No local) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 442 Tm (build, runtime or packaging qualification is claimed.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 412 Tm (Source extraction, implementation and release qualification remain) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 396 Tm (outstanding. This is a source-backed engineering reference, not a complete) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 380 Tm (original specification.) Tj ET
-endstream
-endobj
-60 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 61 0 R >>
-endobj
-61 0 obj
-<< /Length 2533 >>
-stream
-0.05 0.13 0.22 rg 0 750 595 92 re f
-0.03 0.53 0.58 rg 50 747 120 4 re f
-0.75 0.82 0.86 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 803 Tm (INFILTRATOR / FILESYSTEM DESIGN & QUALIFICATION) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773 Tm (Bcachefs - format and architecture) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs | Design-stage reference | ffad7eb18fd2) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 505 34 Tm (PAGE 01) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 706 Tm (STATUS / DESIGN CONTRACT) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 681 Tm (This repository is at the design stage. No independent runtime provider, installation) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 665 Tm (package or qualified filesystem operations are claimed. This document is not an) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 649 Tm (installation or user manual.) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 614 Tm (Format scope) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 589 Tm (Copy-on-write local filesystem; single-device support first. This is a design contract,) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 573 Tm (not a claim of implemented capabilities.) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 538 Tm (On-disk structures and ownership) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 513 Tm (Superblock and feature negotiation; bkey/B-tree ordering, extents,) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 497 Tm (allocation/backpointers, checksums, journal, snapshots/subvolumes and device/replica) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 481 Tm (layout. The single native C/C++ engine owns these format semantics; consumers) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 465 Tm (provide bounded Common V2 host services, never competing parsers.) Tj ET
-BT /F2 11 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 430 Tm (Conceptual provider boundary \(planned\)) Tj ET
-0.91 0.95 0.96 rg 50 385 110 30 re f
-BT /F2 9 Tf 0.08 0.16 0.23 rg 1 0 0 1 57 396 Tm (Native media) Tj ET
-0.03 0.53 0.58 RG 1 w 162 400 m 176 400 l S
-0.91 0.95 0.96 rg 178 385 110 30 re f
-BT /F2 9 Tf 0.08 0.16 0.23 rg 1 0 0 1 185 396 Tm (Bounded host I/O) Tj ET
-0.03 0.53 0.58 RG 1 w 290 400 m 304 400 l S
-0.91 0.95 0.96 rg 306 385 110 30 re f
-BT /F2 9 Tf 0.08 0.16 0.23 rg 1 0 0 1 313 396 Tm (Native engine) Tj ET
-0.03 0.53 0.58 RG 1 w 418 400 m 432 400 l S
-0.91 0.95 0.96 rg 434 385 110 30 re f
-BT /F2 9 Tf 0.08 0.16 0.23 rg 1 0 0 1 441 396 Tm (Common V2) Tj ET
-endstream
-endobj
-62 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 63 0 R >>
-endobj
-63 0 obj
-<< /Length 1994 >>
-stream
-0.05 0.13 0.22 rg 0 750 595 92 re f
-0.03 0.53 0.58 rg 50 747 120 4 re f
-0.75 0.82 0.86 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 803 Tm (INFILTRATOR / FILESYSTEM DESIGN & QUALIFICATION) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773 Tm (Bcachefs - integrity and failure) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs | Design-stage reference | ffad7eb18fd2) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 505 34 Tm (PAGE 02) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 706 Tm (Integrity and mutation invariants) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 681 Tm (Validate key ordering, node ranges, checksums and extent ownership; reject) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 665 Tm (unavailable devices, unsupported compression/encryption and unsafe journal state.) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 649 Tm (CoW and backpointer consistency must survive interruption before mutation is) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 633 Tm (enabled. All arithmetic, offsets and lengths are checked before I/O. Writable) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 617 Tm (operations require exclusive access, explicit ordering, flush and) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 601 Tm (interruption/recovery evidence. Read-only operations leave the medium unchanged.) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 566 Tm (Failure and ownership policy) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 541 Tm (Validate before following on-disk references. Unsupported feature combinations,) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 525 Tm (malformed media, unavailable operations and host failures are distinct outcomes.) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 509 Tm (Mutation requires the ownership and ordering conditions in the design; read-only) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 493 Tm (operations must leave the source image unchanged.) Tj ET
-endstream
-endobj
-64 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 65 0 R >>
-endobj
-65 0 obj
-<< /Length 2454 >>
-stream
-0.05 0.13 0.22 rg 0 750 595 92 re f
-0.03 0.53 0.58 rg 50 747 120 4 re f
-0.75 0.82 0.86 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 803 Tm (INFILTRATOR / FILESYSTEM DESIGN & QUALIFICATION) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773 Tm (Bcachefs - interface and qualification) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs | Design-stage reference | ffad7eb18fd2) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 505 34 Tm (PAGE 03) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 706 Tm (Common V2 boundary) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 681 Tm (Only infiltrator_filesystem_api_v2 is public. Target the genuine) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 665 Tm (PROBE/MOUNT/UNMOUNT/STAT/LIST/READ operations first; negotiate actual) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 649 Tm (supported operation masks. VOLUME, METADATA and DEFRAG operations \(including) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 633 Tm (MAP, PLAN, EXECUTE, VERIFY, RECOVER\) are individually qualified or refused.) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 617 Tm (Test Media uses the same provider's qualified format and namespace operations. No) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 601 Tm (FUSE, legacy ABI, private driver or kernel proxy. Hosted and import-free) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 585 Tm (freestanding profiles share the format engine, with generic environment-specific host) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 569 Tm (services.) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 534 Tm (Independent qualification) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 509 Tm (Exercise independent clean single-device images, B-tree levels, sparse/extents,) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 493 Tm (snapshot visibility, unsupported incompatibility flags, missing devices and damaged) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 477 Tm (checksums. Compare file bytes against an independent oracle, hash unchanged) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 461 Tm (read-only images, inject short I/O, corruption and interruption; validate exact) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 445 Tm (published module separately in BOOT and kernel. Use disposable media only. No new) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 429 Tm (independent binary or test pass is claimed.) Tj ET
-endstream
-endobj
-66 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 67 0 R >>
-endobj
-67 0 obj
-<< /Length 4560 >>
-stream
-0.05 0.13 0.22 rg 0 750 595 92 re f
-0.03 0.53 0.58 rg 50 747 120 4 re f
-0.75 0.82 0.86 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 803 Tm (INFILTRATOR / FILESYSTEM DESIGN & QUALIFICATION) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773 Tm (Bcachefs - engineering acceptance) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 50 34 Tm (Filesystem-Bcachefs | Design-stage reference | ffad7eb18fd2) Tj ET
-BT /F1 8 Tf 0.34 0.4 0.44 rg 1 0 0 1 505 34 Tm (PAGE 04) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 706 Tm (Engineering and release acceptance) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 681 Tm (- A valid CORE descriptor with a real PROBE is mandatory. Every optional operation) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 665 Tm (has its own capability bit and non-null qualified callback; unavailable operations have) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 649 Tm (neither. Recognised format, unsupported feature, corruption, host I/O failure and) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 633 Tm (stale handles remain distinct outcomes. - Use Common's sector-aligned bounded byte) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 617 Tm (helpers. Validate partition extent, logical/physical sector geometry and maximum) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 601 Tm (transfer before reading. Serialize overlapping read/modify/write sectors; request) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 585 Tm (explicit flush barriers. Never infer exclusivity from flags alone; require real exclusive) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 569 Tm (unmounted ownership before formatting or raw mutation. Require the Common entropy) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 553 Tm (service when the format needs a unique identity. - Qualify hosted and import-free) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 537 Tm (freestanding profiles separately; enforce module identity and trust, exact export set) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 521 Tm (and actual packaged bytes. BOOT and kernel are generic loaders; BOOT uses the same) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 505 Tm (file in /EFI/InfiltratorOS/BOOT/drivers_x64/, with the installed canonical copy in) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 489 Tm (/System/Filesystems/. No per-format .ko/.efi, FUSE, proxy, legacy ABI, external) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 473 Tm (formatter or consumer-side parsing substitutes for the engine. - Test Media must) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 457 Tm (format and populate through actual V2 FORMAT/CREATE/WRITE operations; an) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 441 Tm (independent formatter/reader may be a test oracle only, never production fallback.) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 425 Tm (Defragmentation maps, plans, execution, verification and recovery require independent) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 409 Tm (proof of ownership, data preservation and interruption safety. Where not implemented) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 393 Tm (they remain absent. - New build and implementation code is native C/C++ and shell as) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 377 Tm (appropriate, no Python. The generic amd64 DEB and CPU-native source-downloading) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 361 Tm (RUN are the only manually published release assets; GitHub generates source) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 345 Tm (archives. RUN fetches exact versioned source and pinned Common dependency, verifies) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 329 Tm (integrity, compiles natively and installs the selected package; no source archive or) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 313 Tm (DEB embedded. Release immutable exact-main qualification only. No release exists yet.) Tj ET
-BT /F2 12 Tf 0.02 0.48 0.52 rg 1 0 0 1 50 278 Tm (Source and authority) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 253 Tm (Prepared from README.md and native/filesystems/bcachefs/DESIGN.md at revision) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 237 Tm (ffad7eb18fd24fe235609402a7bddb4320ebb670. The editable Markdown design and) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 221 Tm (migration status are authoritative. No test result, release or implemented capability) Tj ET
-BT /F1 10.5 Tf 0.08 0.16 0.23 rg 1 0 0 1 50 205 Tm (is inferred from this reference.) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (Bcachefs - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (16. Validation and source references) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Use the pinned source at https://github.com/torvalds/linux/tree/v6.12/fs/bcachefs) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (and its bcachefs_format.h, sb-members_format.h, extents_format.h, inode_format.h,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (dirent_format.h, snapshot_format.h, subvolume_format.h and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (alloc_background_format.h definitions. Follow the associated packing, journal) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (replay, checksum, allocation and snapshot implementation for revision-specific) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (algorithms. Compare clean single-device fixtures and then multi-device fixtures) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (against version-matched native tools; test stale generation, conflicting) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (superblocks, truncated typed records, malformed packed keys, whiteouts, shared) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (extents and interrupted relocation. Exact checksum coverage/nonces, varint) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (encoding, hash algorithms, feature upgrades, replay ordering and transactional) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (writer invariants need further algorithm-level validation. This chapter is a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (research reference, not evidence of provider implementation or release) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (qualification.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 514 Td (Early design reference: https://lkml.iu.edu/1805.1/01005.html .) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 490 Td (Retained source:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 476 Td (https://github.com/Infiltrator-Projects/Filesystems/blob/101026021d9088d80b7f0f472d) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 462 Td (9061f0e2c688a3/native/filesystems/bcachefs/linux/bcachefs_format.h \(blob) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 448 Td (5004f6ba99\).) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 17) Tj ET
 endstream
 endobj
 xref
-0 68
+0 40
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
-0000000325 00000 n 
-0000000395 00000 n 
-0000000470 00000 n 
-0000000538 00000 n 
-0000000684 00000 n 
-0000002018 00000 n 
-0000002164 00000 n 
-0000003392 00000 n 
-0000003540 00000 n 
-0000004902 00000 n 
-0000005050 00000 n 
-0000006301 00000 n 
-0000006449 00000 n 
-0000007750 00000 n 
-0000007898 00000 n 
-0000009217 00000 n 
-0000009365 00000 n 
-0000010639 00000 n 
-0000010787 00000 n 
-0000012053 00000 n 
-0000012201 00000 n 
-0000013501 00000 n 
-0000013649 00000 n 
-0000015091 00000 n 
-0000015239 00000 n 
-0000016649 00000 n 
-0000016797 00000 n 
-0000018031 00000 n 
-0000018179 00000 n 
-0000019529 00000 n 
-0000019677 00000 n 
-0000021074 00000 n 
-0000021222 00000 n 
-0000022763 00000 n 
-0000022911 00000 n 
-0000023562 00000 n 
-0000023710 00000 n 
-0000025407 00000 n 
-0000025555 00000 n 
-0000026960 00000 n 
-0000027108 00000 n 
-0000028282 00000 n 
-0000028430 00000 n 
-0000029890 00000 n 
-0000030038 00000 n 
-0000031901 00000 n 
-0000032049 00000 n 
-0000033649 00000 n 
-0000033797 00000 n 
-0000035694 00000 n 
-0000035842 00000 n 
-0000037873 00000 n 
-0000038021 00000 n 
-0000039472 00000 n 
-0000039620 00000 n 
-0000041856 00000 n 
-0000042004 00000 n 
-0000044391 00000 n 
-0000044539 00000 n 
-0000047124 00000 n 
-0000047272 00000 n 
-0000049318 00000 n 
-0000049466 00000 n 
-0000051972 00000 n 
-0000052120 00000 n 
+0000000227 00000 n 
+0000000297 00000 n 
+0000000372 00000 n 
+0000000440 00000 n 
+0000000586 00000 n 
+0000002312 00000 n 
+0000002458 00000 n 
+0000004104 00000 n 
+0000004252 00000 n 
+0000005711 00000 n 
+0000005859 00000 n 
+0000007533 00000 n 
+0000007681 00000 n 
+0000009211 00000 n 
+0000009359 00000 n 
+0000011585 00000 n 
+0000011733 00000 n 
+0000013372 00000 n 
+0000013520 00000 n 
+0000015065 00000 n 
+0000015213 00000 n 
+0000016750 00000 n 
+0000016898 00000 n 
+0000018470 00000 n 
+0000018618 00000 n 
+0000020414 00000 n 
+0000020562 00000 n 
+0000022326 00000 n 
+0000022474 00000 n 
+0000023988 00000 n 
+0000024136 00000 n 
+0000025799 00000 n 
+0000025947 00000 n 
+0000027706 00000 n 
+0000027854 00000 n 
+0000029602 00000 n 
+0000029750 00000 n 
 trailer
-<< /Size 68 /Root 1 0 R >>
+<< /Size 40 /Root 1 0 R >>
 startxref
-56732
+32225
 %%EOF
