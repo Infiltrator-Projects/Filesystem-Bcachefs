@@ -57,10 +57,24 @@ static void with_journal(int bad){
  }
 }
 static void with_clean(int bad){
+ /* Native root node with a local packed key spanning two words.
+  * Key fields: inode (8), offset (48), snapshot (8); version and size
+  * constant. Numeric ordering is independent of little-endian bytes. */
+ uint8_t *node=image+2048u*512u;
+ put64(node+16,UINT64_C(0x90135c78b99e07f5)^1u);put64(node+24,1);
+ put64(node+52+12,255);put64(node+52+4,UINT64_MAX);put32(node+52,255);
+ node[80]=2;node[81]=6;node[82]=8;node[83]=48;node[84]=8;
+ put64(node+136,7);put64(node+144,1);put32(node+152,1);put16(node+156,1037);put16(node+158,4);
+ uint8_t *a=node+160,*b=a+16;
+ a[0]=2;b[0]=2;put64(a+8,UINT64_C(0x0100000000000102));put64(b+8,UINT64_C(0x0200000000000102));
+ if(bad==2)put64(b+8,UINT64_C(0x0100000000000102));
+ if(bad==3)node[82]=65;
+ put32(node,crc32c(0xffffffffu,node+16,176)^0xffffffffu);
+ if(bad==4)node[168]^=1;
  for(unsigned copy=0;copy<2;copy++){
   uint8_t*p=image+(copy?256u*512u:4096u),*c=p+816,*e=c+24,*k=e+8;
-  put64(p+144,7);put32(c,10);put32(c+4,6);put64(c+16,1);
-  put16(e,6);e[2]=1;e[3]=0;e[4]=1;k[0]=bad?7:6;k[1]=1;k[2]=5;
+  put64(p+144,7|(8u<<12));put32(c,10);put32(c+4,6);put64(c+16,1);
+  put16(e,6);e[2]=1;e[3]=0;e[4]=1;k[0]=bad==1?7:6;k[1]=1;k[2]=5;
   put64(k+40,(UINT64_C(2048)<<4)|1u);
   put32(p+124,18);put32(p,crc32c(0xffffffffu,p+16,880)^0xffffffffu);
  }
@@ -91,6 +105,9 @@ int main(int argc,char **argv){
   memset(image,0,SIZE);fixture();with_journal(1);expect(core,&h,&c,IFS_FS_CORRUPT);
   memset(image,0,SIZE);fixture();with_clean(0);expect(core,&h,&c,IFS_FS_OK);
   memset(image,0,SIZE);fixture();with_clean(1);expect(core,&h,&c,IFS_FS_CORRUPT);
+  for(int bad=2;bad<=4;bad++){
+   memset(image,0,SIZE);fixture();with_clean(bad);expect(core,&h,&c,IFS_FS_CORRUPT);
+  }
  }
  if(c.fd>=0)assert(!close(c.fd));
  free(image);assert(!dlclose(lib));

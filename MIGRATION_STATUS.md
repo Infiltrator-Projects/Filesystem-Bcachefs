@@ -7,3 +7,7 @@ CORE PROBE only. B-tree packed keys and root state, journal and snapshot visibil
 ## Native journal bootstrap
 
 Recognition now validates declared journal buckets and non-overlapping journal ranges against the member geometry, matches redundant member identities, and decodes clean-section journal record lengths, native root key shape and single-member pointer bounds. These are bounded bootstrap checks; root-node reading, node-local key decoding, journal reconciliation, allocation generations and namespace traversal remain outstanding. Checksummed malformed journal and root fixtures are mandatory in CI.
+
+## Native root-node decoding
+
+The clean-section root decoder now validates the pointed-to native B-tree node, its checksum and set sequence, tree identity/level, packed format field widths and base ranges, and ordered logical key positions. Tests exercise packed cross-word keys, malformed format, duplicate logical keys and damaged node checksums. This is development evidence only until exact CI completes; full journal ordering, allocation ownership, B-tree descent/merge and snapshot-aware namespace remain outstanding.

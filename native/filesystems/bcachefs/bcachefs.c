@@ -80,14 +80,124 @@ static int journal_buckets(const uint8_t *p,uint64_t n,unsigned type,
     }
     return 0;
 }
+
+/* Native little-endian bkey positions: the on-disk packed integer
+ * starts at its most significant bit, walking towards the three-byte
+ * record prefix. Field bases and widths must fit the unpacked types. */
+typedef struct {uint64_t inode,offset,snapshot;} Position;
+static Position position(const uint8_t*p){
+    Position k={le64(p+12),le64(p+4),le32(p)};return k;
+}
+static int compare(Position a,Position b){
+    if(a.inode!=b.inode)return a.inode<b.inode?-1:1;
+    if(a.offset!=b.offset)return a.offset<b.offset?-1:1;
+    if(a.snapshot!=b.snapshot)return a.snapshot<b.snapshot?-1:1;
+    return 0;
+}
+static int format_valid(const uint8_t*f){
+    static const unsigned width[6]={64,64,32,32,32,64};
+    unsigned bits=24;
+    if(f[1]!=6u)return IFS_FS_CORRUPT;
+    for(unsigned j=0;j<6;j++){
+        unsigned n=f[2+j];uint64_t base=le64(f+8+8u*j);
+        uint64_t max=width[j]==64?UINT64_MAX:UINT32_MAX;
+        if(n>width[j]||base>max)return IFS_FS_CORRUPT;
+        uint64_t mask=n==64?UINT64_MAX:n?(UINT64_C(1)<<n)-1u:0u;
+        if(mask>max-base)return IFS_FS_CORRUPT;
+        bits+=n;
+    }
+    return f[0]==(bits+63u)/64u?0:IFS_FS_CORRUPT;
+}
+static int key_position(const uint8_t*f,const uint8_t*k,unsigned words,Position*out){
+    unsigned fmt=k[1]&127u;
+    if(fmt==1u){
+        if(words<5u)return IFS_FS_CORRUPT;
+        *out=position(k+20);return 0;
+    }
+    if(fmt)return IFS_FS_UNSUPPORTED;
+    if(words<f[0])return IFS_FS_CORRUPT;
+    unsigned bit=f[0]*64u;
+    uint64_t fields[6];
+    for(unsigned j=0;j<6;j++){
+        uint64_t n=0;
+        for(unsigned i=0;i<f[2+j];i++){
+            if(bit<=24u)return IFS_FS_CORRUPT;
+            bit--;n=(n<<1)|((k[bit/8u]>>(bit%8u))&1u);
+        }
+        fields[j]=le64(f+8+j*8u)+n;
+    }
+    out->inode=fields[0];out->offset=fields[1];out->snapshot=fields[2];return 0;
+}
+static int key_set(const uint8_t*f,const uint8_t*p,uint32_t bytes,Position lo,Position hi){
+    Position prev=lo;unsigned seen=0;
+    for(unsigned at=0;at<bytes;){
+        unsigned words=p[at],n=words*8u;
+        if(!words||n>bytes-at)return IFS_FS_CORRUPT;
+        Position k;int rc=key_position(f,p+at,words,&k);if(rc)return rc;
+        if(compare(k,lo)<0||compare(k,hi)>0||(seen&&compare(k,prev)<=0))return IFS_FS_CORRUPT;
+        prev=k;seen=1;at+=n;
+    }
+    return 0;
+}
+/* Check the actual root-node records reachable from a clean-section
+ * pointer. This is structural verification, not a recovered tree:
+ * overlapping updates across bsets, blacklists and bucket generation
+ * ownership still require separate validation before a mount. */
+static int root_node(const IfsFsHostRuntimeV2*h,const uint8_t*uuid,
+                     uint64_t sector,unsigned tree,unsigned level,
+                     uint32_t node_sectors,uint32_t block_sectors,
+                     uint32_t written,uint64_t seq,uint64_t committed){
+    if(!node_sectors||node_sectors>2048u||node_sectors%block_sectors||
+       sector%block_sectors||written>node_sectors||
+       (written&&written%block_sectors))return IFS_FS_UNSUPPORTED;
+    uint32_t bytes=(written?written:node_sectors)*512u;
+    uint8_t*p=h->allocate(h->context,bytes);if(!p)return IFS_FS_NO_MEMORY;
+    int rc=read_bytes(h,sector*512u,p,bytes);if(rc)goto done;
+    if(bytes<160u||le64(p+16)!=(le64(uuid)^UINT64_C(0x90135c78b99e07f5))||
+       !le64(p+136)||(seq&&le64(p+136)!=seq)){rc=IFS_FS_CORRUPT;goto done;}
+    uint64_t flags=le64(p+24);
+    unsigned id=(unsigned)((flags&15u)|(((flags>>9)&65535u)<<4));
+    if(id!=tree||((flags>>4)&15u)!=level){rc=IFS_FS_CORRUPT;goto done;}
+    Position lo=position(p+32),hi=position(p+52);
+    if(compare(lo,hi)>0){rc=IFS_FS_CORRUPT;goto done;}
+    rc=format_valid(p+80);if(rc)goto done;
+    uint32_t at=0,align=block_sectors*512u;
+    uint64_t setseq=le64(p+136);
+    while(at<bytes){
+        unsigned head=at?16u:136u;
+        if(bytes-at<head+24u){rc=IFS_FS_CORRUPT;goto done;}
+        const uint8_t*b=p+at,*s=b+head;
+        if(le64(s)!=setseq){
+            if(!written&&at)break;
+            rc=IFS_FS_CORRUPT;goto done;
+        }
+        uint32_t fl=le32(s+16),n=le16(s+22)*8u;
+        unsigned type=fl&15u,ver=le16(s+20);
+        if((fl&48u)||!(type==1u||type==2u||type==5u||type==6u)||
+           ver<9u||ver>1037u){rc=IFS_FS_UNSUPPORTED;goto done;}
+        if((fl>>16)!=at/512u||le64(s+8)>committed||n>bytes-at-head-24u){
+            rc=IFS_FS_CORRUPT;goto done;
+        }
+        uint32_t len=head+24u+n;
+        if(le64(b+8)||checksum(type,b+16,len-16u)!=le64(b)){rc=IFS_FS_CORRUPT;goto done;}
+        rc=key_set(p+80,s+24,n,lo,hi);if(rc)goto done;
+        uint32_t step=(len+align-1u)/align*align;
+        if(step>bytes-at){rc=IFS_FS_CORRUPT;goto done;}
+        at+=step;
+    }
+    rc=0;
+done:
+    h->release(h->context,p);return rc;
+}
+
 /* The clean section consists of journal-entry headers with lengths
  * measured in payload words (unlike the superblock field length,
  * which includes its own header). Root keys must be exactly one
  * current, unpacked pointer key. Bounds do not establish committed
  * root visibility: journal recovery and node checksum validation
  * remain mandatory before mounting or returning any file data. */
-static int clean_records(const uint8_t*p,uint64_t n,int big_endian,
-                         uint64_t first,uint64_t buckets,uint32_t bucket_size)
+static int clean_records(const IfsFsHostRuntimeV2*h,const uint8_t*uuid,const uint8_t*p,uint64_t n,int big_endian,
+                         uint64_t first,uint64_t buckets,uint32_t bucket_size,uint32_t block_size,uint32_t node_sectors)
 {
     if(n<24u)return IFS_FS_CORRUPT;
     if(big_endian)return IFS_FS_UNSUPPORTED;
@@ -118,10 +228,10 @@ static int clean_records(const uint8_t*p,uint64_t n,int big_endian,
             if((ptr&15u)!=1u||((ptr>>48)&255u)!=0u)return IFS_FS_CORRUPT;
             uint64_t sector=(ptr>>4)&UINT64_C(0xfffffffffff);
             if(sector/bucket_size<first||sector/bucket_size>=buckets)return IFS_FS_CORRUPT;
-            if(keytype==18u){
-                unsigned written=le16(k+56);
-                if(written>bucket_size-sector%bucket_size)return IFS_FS_CORRUPT;
-            }
+            unsigned written=keytype==18u?le16(k+56):0u;
+            if(!node_sectors||node_sectors>bucket_size-sector%bucket_size||written>node_sectors)return IFS_FS_CORRUPT;
+            int rc=root_node(h,uuid,sector,id,level,node_sectors,block_size,written,keytype==18u?le64(k+48):0u,le64(p+16));
+            if(rc)return rc;
         }else if(type==3u&&words!=1u)return IFS_FS_CORRUPT;
         else if(type==4u&&(words!=2u||le64(e+8)>le64(e+16)))return IFS_FS_CORRUPT;
         at+=bytes;
@@ -174,7 +284,7 @@ static int copy(const IfsFsHostRuntimeV2 *h,const uint8_t *layout,uint64_t off,I
     if(journal){rc=journal_buckets(journal,journal_n,journal_type,first,buckets);if(rc)goto done;}
     uint64_t flags=le64(p+144);
     if((flags&3u)==3u&&!clean){rc=IFS_FS_CORRUPT;goto done;}
-    if(clean){rc=clean_records(clean,clean_n,(flags>>62)&1u,first,buckets,bucket_size);if(rc)goto done;}
+    if(clean){rc=clean_records(h,p+40,clean,clean_n,(flags>>62)&1u,first,buckets,bucket_size,block,(uint32_t)((flags>>12)&65535u));if(rc)goto done;}
     for(unsigned i=0;i<16u;i++){id->uuid[i]=p[40+i];id->user[i]=p[56+i];id->member_uuid[i]=m[i];}
     id->buckets=buckets;id->first=first;id->bucket_size=bucket_size;
     id->seq=le64(p+112);id->version=version;rc=IFS_FS_OK;
