@@ -146,7 +146,8 @@ static int key_set(const uint8_t*f,const uint8_t*p,uint32_t bytes,Position lo,Po
 static int root_node(const IfsFsHostRuntimeV2*h,const uint8_t*uuid,
                      uint64_t sector,unsigned tree,unsigned level,
                      uint32_t node_sectors,uint32_t block_sectors,
-                     uint32_t written,uint64_t seq,uint64_t committed){
+                     uint32_t written,uint64_t seq,uint64_t committed,
+                     Position expected_max,const uint8_t*expected_min){
     if(!node_sectors||node_sectors>2048u||node_sectors%block_sectors||
        sector%block_sectors||written>node_sectors||
        (written&&written%block_sectors))return IFS_FS_UNSUPPORTED;
@@ -159,7 +160,8 @@ static int root_node(const IfsFsHostRuntimeV2*h,const uint8_t*uuid,
     unsigned id=(unsigned)((flags&15u)|(((flags>>9)&65535u)<<4));
     if(id!=tree||((flags>>4)&15u)!=level){rc=IFS_FS_CORRUPT;goto done;}
     Position lo=position(p+32),hi=position(p+52);
-    if(compare(lo,hi)>0){rc=IFS_FS_CORRUPT;goto done;}
+    if(compare(lo,hi)>0||compare(hi,expected_max)||
+       (expected_min&&compare(lo,position(expected_min)))){rc=IFS_FS_CORRUPT;goto done;}
     rc=format_valid(p+80);if(rc)goto done;
     uint32_t at=0,align=block_sectors*512u;
     uint64_t setseq=le64(p+136);
@@ -175,7 +177,7 @@ static int root_node(const IfsFsHostRuntimeV2*h,const uint8_t*uuid,
         unsigned type=fl&15u,ver=le16(s+20);
         if((fl&48u)||!(type==1u||type==2u||type==5u||type==6u)||
            ver<9u||ver>1037u){rc=IFS_FS_UNSUPPORTED;goto done;}
-        if((fl>>16)!=at/512u||le64(s+8)>committed||n>bytes-at-head-24u){
+        if(((fl>>16)&&(fl>>16)!=at/512u)||(at&&!n)||le64(s+8)>committed||n>bytes-at-head-24u){
             rc=IFS_FS_CORRUPT;goto done;
         }
         uint32_t len=head+24u+n;
@@ -229,8 +231,12 @@ static int clean_records(const IfsFsHostRuntimeV2*h,const uint8_t*uuid,const uin
             uint64_t sector=(ptr>>4)&UINT64_C(0xfffffffffff);
             if(sector/bucket_size<first||sector/bucket_size>=buckets)return IFS_FS_CORRUPT;
             unsigned written=keytype==18u?le16(k+56):0u;
+            /* A range-updated pointer changes the effective key interval;
+             * do not use its stale physical node bounds as authoritative. */
+            if(keytype==18u&&le16(k+58))return IFS_FS_UNSUPPORTED;
+            if(keytype==18u&&!le64(k+48))return IFS_FS_CORRUPT;
             if(!node_sectors||node_sectors>bucket_size-sector%bucket_size||written>node_sectors)return IFS_FS_CORRUPT;
-            int rc=root_node(h,uuid,sector,id,level,node_sectors,block_size,written,keytype==18u?le64(k+48):0u,le64(p+16));
+            int rc=root_node(h,uuid,sector,id,level,node_sectors,block_size,written,keytype==18u?le64(k+48):0u,le64(p+16),position(k+20),keytype==18u?k+60:NULL);
             if(rc)return rc;
         }else if(type==3u&&words!=1u)return IFS_FS_CORRUPT;
         else if(type==4u&&(words!=2u||le64(e+8)>le64(e+16)))return IFS_FS_CORRUPT;

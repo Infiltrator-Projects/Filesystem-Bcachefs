@@ -11,3 +11,5 @@ Recognition now validates declared journal buckets and non-overlapping journal r
 ## Native root-node decoding
 
 The clean-section root decoder now validates the pointed-to native B-tree node, its checksum and set sequence, tree identity/level, packed format field widths and base ranges, and ordered logical key positions. Tests exercise packed cross-word keys, malformed format, duplicate logical keys and damaged node checksums. This is development evidence only until exact CI completes; full journal ordering, allocation ownership, B-tree descent/merge and snapshot-aware namespace remain outstanding.
+
+Root pointers are additionally bound to the exact native maximum position and v2 minimum position/sequence. Range-updated pointers are explicitly unsupported. The regression exercises a separate appended bset checksum, mismatched key bounds, stale node sequence and uncommitted journal sequence; this does not implement effective set merging or allocation ownership.

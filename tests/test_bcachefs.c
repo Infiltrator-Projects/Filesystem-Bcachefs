@@ -75,10 +75,36 @@ static void with_clean(int bad){
   uint8_t*p=image+(copy?256u*512u:4096u),*c=p+816,*e=c+24,*k=e+8;
   put64(p+144,7|(8u<<12));put32(c,10);put32(c+4,6);put64(c+16,1);
   put16(e,6);e[2]=1;e[3]=0;e[4]=1;k[0]=bad==1?7:6;k[1]=1;k[2]=5;
+  put32(k+20,255);put64(k+24,UINT64_MAX);put64(k+32,255);
   put64(k+40,(UINT64_C(2048)<<4)|1u);
   put32(p+124,18);put32(p,crc32c(0xffffffffu,p+16,880)^0xffffffffu);
  }
 }
+
+/* Exercise v2 pointer sequence and exact range binding, plus appended
+ * bsets. The first set is one 4 KiB block; the appended entry uses a
+ * separate checksum and sector offset. Its keys are structural records,
+ * not a recovered effective namespace. */
+static void with_v2_root(int bad){
+ with_clean(0);
+ uint8_t*node=image+2048u*512u,*second=node+4096;
+ put64(second+16,7);put64(second+24,1);put32(second+32,1u|(8u<<16));
+ put16(second+36,1037);put16(second+38,2);
+ second[40]=2;put64(second+48,UINT64_C(0x0300000000000102));
+ if(bad==4)put64(second+24,2);
+ put32(second,crc32c(0xffffffffu,second+16,40)^0xffffffffu);
+ if(bad==5)second[48]^=1;
+ for(unsigned copy=0;copy<2;copy++){
+  uint8_t*p=image+(copy?256u*512u:4096u),*c=p+816,*e=c+24,*k=e+8;
+  put64(p+144,7|(16u<<12));put32(c,15);put16(e,11);k[0]=11;k[2]=18;
+  put64(k+40,0);put64(k+48,bad==1?8:7);put16(k+56,16);
+  if(bad==2)put32(k+60,1);
+  if(bad==3)put64(k+32,254);
+  put64(k+80,(UINT64_C(2048)<<4)|1u);
+  put32(p+124,23);put32(p,crc32c(0xffffffffu,p+16,920)^0xffffffffu);
+ }
+}
+
 static void expect(const IfsFsCoreOpsV2 *core,IfsFsHostRuntimeV2*h,struct context*c,int want){
  uint32_t v=99;int rc=core->probe(h,&v);
  if(rc!=want)fprintf(stderr,"expected %d got %d at sector %u\n",want,rc,c->sector);
@@ -105,6 +131,10 @@ int main(int argc,char **argv){
   memset(image,0,SIZE);fixture();with_journal(1);expect(core,&h,&c,IFS_FS_CORRUPT);
   memset(image,0,SIZE);fixture();with_clean(0);expect(core,&h,&c,IFS_FS_OK);
   memset(image,0,SIZE);fixture();with_clean(1);expect(core,&h,&c,IFS_FS_CORRUPT);
+  memset(image,0,SIZE);fixture();with_v2_root(0);expect(core,&h,&c,IFS_FS_OK);
+  for(int bad=1;bad<=5;bad++){
+   memset(image,0,SIZE);fixture();with_v2_root(bad);expect(core,&h,&c,IFS_FS_CORRUPT);
+  }
   for(int bad=2;bad<=4;bad++){
    memset(image,0,SIZE);fixture();with_clean(bad);expect(core,&h,&c,IFS_FS_CORRUPT);
   }
