@@ -59,7 +59,76 @@ static int member(const uint8_t *p,uint64_t sectors,unsigned block)
     return nonzero(p,16)&&buckets>=64u&&buckets<2147483584u&&first<buckets&&
         size>=block&&!(size&(size-1u))&&buckets<=sectors/size;
 }
-typedef struct {uint8_t uuid[16],user[16];uint64_t seq;uint32_t version;} Identity;
+/* Journal bucket lists are relative to the selected member, not the
+ * backing image's apparent capacity. Decode both published encodings
+ * and reject overlap, overflow and reserved-bucket references. */
+static int journal_buckets(const uint8_t *p,uint64_t n,unsigned type,
+                           uint64_t first,uint64_t buckets)
+{
+    unsigned stride=type==0u?8u:16u;
+    if(n<8u||(n-8u)%stride)return IFS_FS_CORRUPT;
+    /* Bound quadratic overlap checking on unusually large journals.
+     * This is an explicit unsupported recognition profile, not a pass. */
+    if((n-8u)/stride>65536u)return IFS_FS_UNSUPPORTED;
+    for(uint64_t at=8;at<n;at+=stride){
+        uint64_t a=le64(p+at),count=type==0u?1u:le64(p+at+8);
+        if(a<first||a>=buckets||!count||count>buckets-a)return IFS_FS_CORRUPT;
+        for(uint64_t prior=8;prior<at;prior+=stride){
+            uint64_t b=le64(p+prior),len=type==0u?1u:le64(p+prior+8);
+            if(a<b+len&&b<a+count)return IFS_FS_CORRUPT;
+        }
+    }
+    return 0;
+}
+/* The clean section consists of journal-entry headers with lengths
+ * measured in payload words (unlike the superblock field length,
+ * which includes its own header). Root keys must be exactly one
+ * current, unpacked pointer key. Bounds do not establish committed
+ * root visibility: journal recovery and node checksum validation
+ * remain mandatory before mounting or returning any file data. */
+static int clean_records(const uint8_t*p,uint64_t n,int big_endian,
+                         uint64_t first,uint64_t buckets,uint32_t bucket_size)
+{
+    if(n<24u)return IFS_FS_CORRUPT;
+    if(big_endian)return IFS_FS_UNSUPPORTED;
+    uint64_t roots=0;
+    for(uint64_t at=24;at<n;){
+        if(n-at<8u)return IFS_FS_CORRUPT;
+        const uint8_t *e=p+at;
+        unsigned words=le16(e),type=e[4],id=e[2],level=e[3];
+        uint64_t bytes=(uint64_t)words*8u+8u;
+        if(bytes>n-at)return IFS_FS_CORRUPT;
+        if(type>12u)return IFS_FS_UNSUPPORTED;
+        if(type==1u){
+            if(id>=21u||level>=16u)return IFS_FS_UNSUPPORTED;
+            if((roots&(UINT64_C(1)<<id))||words<6u||words>255u||e[8]!=words||
+               (e[9]&127u)!=1u)return IFS_FS_CORRUPT;
+            roots|=UINT64_C(1)<<id;
+            unsigned keytype=e[10],ptr_at;
+            if(keytype==5u)ptr_at=5u;
+            else if(keytype==18u)ptr_at=10u;
+            else return IFS_FS_UNSUPPORTED;
+            if(words<=ptr_at)return IFS_FS_CORRUPT;
+            if(words!=ptr_at+1u)return IFS_FS_UNSUPPORTED;
+            const uint8_t *k=e+8;
+            uint64_t ptr=le64(k+ptr_at*8u);
+            /* Extent pointers use the low set bit as the type tag.
+             * The single device is index zero; reject cached/unwritten
+             * metadata and pointers outside its declared bucket space. */
+            if((ptr&15u)!=1u||((ptr>>48)&255u)!=0u)return IFS_FS_CORRUPT;
+            uint64_t sector=(ptr>>4)&UINT64_C(0xfffffffffff);
+            if(sector/bucket_size<first||sector/bucket_size>=buckets)return IFS_FS_CORRUPT;
+            if(keytype==18u){
+                unsigned written=le16(k+56);
+                if(written>bucket_size-sector%bucket_size)return IFS_FS_CORRUPT;
+            }
+        }else if(type==3u&&words!=1u)return IFS_FS_CORRUPT;
+        else if(type==4u&&(words!=2u||le64(e+8)>le64(e+16)))return IFS_FS_CORRUPT;
+        at+=bytes;
+    }
+    return 0;
+}
+typedef struct {uint8_t uuid[16],user[16],member_uuid[16];uint64_t seq,buckets;uint32_t version,bucket_size,first;} Identity;
 static int copy(const IfsFsHostRuntimeV2 *h,const uint8_t *layout,uint64_t off,Identity *id)
 {
     uint8_t fixed[FIXED];int rc=read_bytes(h,off*512u,fixed,sizeof(fixed));if(rc)return rc;
@@ -78,7 +147,7 @@ static int copy(const IfsFsHostRuntimeV2 *h,const uint8_t *layout,uint64_t off,I
     rc=read_bytes(h,off*512u,p,(uint32_t)bytes);
     if(rc)goto done;
     if(!equal(fixed,p,FIXED)||le64(p+8)||checksum(ctype,p+16,(uint32_t)bytes-16u)!=le64(p)){rc=IFS_FS_CORRUPT;goto done;}
-    uint32_t seen=0;int members=0;
+    uint32_t seen=0;const uint8_t *m=NULL,*journal=NULL,*clean=NULL;uint64_t journal_n=0,clean_n=0;unsigned journal_type=0;
     for(uint64_t at=FIXED;at<bytes;){
         if(bytes-at<8u){rc=IFS_FS_CORRUPT;goto done;}
         uint64_t n=(uint64_t)le32(p+at)*8u;unsigned type=le32(p+at+4);
@@ -87,15 +156,20 @@ static int copy(const IfsFsHostRuntimeV2 *h,const uint8_t *layout,uint64_t off,I
         if(seen&(1u<<type)){rc=IFS_FS_CORRUPT;goto done;}seen|=1u<<type;
         if(type==1u){
             if(n<64u||!member(p+at+8,h->volume_bytes/512u,block)){rc=IFS_FS_CORRUPT;goto done;}
-            members=1;
+            if(m&&!equal(m,p+at+8,28)){rc=IFS_FS_CORRUPT;goto done;}
+            m=p+at+8;
         }else if(type==11u){
             unsigned size=n>=16u?le16(p+at+8):0u;
             if(size<56u||size>n-16u||!member(p+at+16,h->volume_bytes/512u,block)){rc=IFS_FS_CORRUPT;goto done;}
-            members=1;
-        }
+            if(m&&!equal(m,p+at+16,28)){rc=IFS_FS_CORRUPT;goto done;}
+            m=p+at+16;
+        }else if(type==0u||type==9u){
+            if(journal){rc=IFS_FS_UNSUPPORTED;goto done;}
+            journal=p+at;journal_n=n;journal_type=type;
+        }else if(type==6u){clean=p+at;clean_n=n;}
         at+=n;
     }
-    if(!members){rc=IFS_FS_CORRUPT;goto done;}
+    if(!m){rc=IFS_FS_CORRUPT;goto done;}
     for(unsigned i=0;i<16u;i++){id->uuid[i]=p[40+i];id->user[i]=p[56+i];}
     id->seq=le64(p+112);id->version=version;rc=IFS_FS_OK;
 done:
@@ -109,7 +183,7 @@ static int identify(const IfsFsHostRuntimeV2 *h,uint32_t *variant)
     for(unsigned i=0;i<layout[18];i++){
         Identity now;rc=copy(h,layout,le64(layout+24+i*8u),&now);
         if(rc){if(rc==IFS_FS_IO_ERROR||rc==IFS_FS_NO_MEMORY||rc==IFS_FS_UNSUPPORTED)fail=rc;continue;}
-        if(have&&(!equal(best.uuid,now.uuid,16)||!equal(best.user,now.user,16)))return IFS_FS_CORRUPT;
+        if(have&&(!equal(best.uuid,now.uuid,16)||!equal(best.user,now.user,16)||!equal(best.member_uuid,now.member_uuid,16)||best.buckets!=now.buckets||best.bucket_size!=now.bucket_size||best.first!=now.first))return IFS_FS_CORRUPT;
         if(!have||now.seq>best.seq){best=now;have=1;}
     }
     if(!have)return fail;

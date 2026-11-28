@@ -45,6 +45,26 @@ static void fixture(void){
 }
 static void corrupt(void){image[4096+756]^=1;image[256u*512u+756]^=1;}
 static void absent(void){image[3584]=0;}
+
+/* Valid outer CRCs cannot excuse malformed native journal sections. */
+static void with_journal(int bad){
+ for(unsigned copy=0;copy<2;copy++){
+  uint8_t *p=image+(copy?256u*512u:4096u);
+  uint8_t *j=p+816;
+  put32(j,5);put32(j+4,9);put64(j+8,5);put64(j+16,2);
+  put64(j+24,bad?6:8);put64(j+32,1);
+  put32(p+124,13);put32(p,crc32c(0xffffffffu,p+16,840)^0xffffffffu);
+ }
+}
+static void with_clean(int bad){
+ for(unsigned copy=0;copy<2;copy++){
+  uint8_t*p=image+(copy?256u*512u:4096u),*c=p+816,*e=c+24,*k=e+8;
+  put64(p+144,7);put32(c,10);put32(c+4,6);put64(c+16,1);
+  put16(e,6);e[2]=1;e[3]=0;e[4]=1;k[0]=bad?7:6;k[1]=1;k[2]=5;
+  put64(k+40,(UINT64_C(2048)<<4)|1u);
+  put32(p+124,18);put32(p,crc32c(0xffffffffu,p+16,880)^0xffffffffu);
+ }
+}
 static void expect(const IfsFsCoreOpsV2 *core,IfsFsHostRuntimeV2*h,struct context*c,int want){
  uint32_t v=99;int rc=core->probe(h,&v);
  if(rc!=want)fprintf(stderr,"expected %d got %d at sector %u\n",want,rc,c->sector);
@@ -67,6 +87,10 @@ int main(int argc,char **argv){
   c.fail=1;expect(core,&h,&c,IFS_FS_IO_ERROR);c.fail=0;
   corrupt();expect(core,&h,&c,IFS_FS_CORRUPT);
   memset(image,0,SIZE);fixture();absent();expect(core,&h,&c,IFS_FS_NOT_FOUND);
+  memset(image,0,SIZE);fixture();with_journal(0);expect(core,&h,&c,IFS_FS_OK);
+  memset(image,0,SIZE);fixture();with_journal(1);expect(core,&h,&c,IFS_FS_CORRUPT);
+  memset(image,0,SIZE);fixture();with_clean(0);expect(core,&h,&c,IFS_FS_OK);
+  memset(image,0,SIZE);fixture();with_clean(1);expect(core,&h,&c,IFS_FS_CORRUPT);
  }
  if(c.fd>=0)assert(!close(c.fd));
  free(image);assert(!dlclose(lib));
