@@ -170,7 +170,13 @@ static int copy(const IfsFsHostRuntimeV2 *h,const uint8_t *layout,uint64_t off,I
         at+=n;
     }
     if(!m){rc=IFS_FS_CORRUPT;goto done;}
-    for(unsigned i=0;i<16u;i++){id->uuid[i]=p[40+i];id->user[i]=p[56+i];}
+    uint64_t buckets=le64(m+16);uint32_t first=le16(m+24),bucket_size=le16(m+26);
+    if(journal){rc=journal_buckets(journal,journal_n,journal_type,first,buckets);if(rc)goto done;}
+    uint64_t flags=le64(p+144);
+    if((flags&3u)==3u&&!clean){rc=IFS_FS_CORRUPT;goto done;}
+    if(clean){rc=clean_records(clean,clean_n,(flags>>62)&1u,first,buckets,bucket_size);if(rc)goto done;}
+    for(unsigned i=0;i<16u;i++){id->uuid[i]=p[40+i];id->user[i]=p[56+i];id->member_uuid[i]=m[i];}
+    id->buckets=buckets;id->first=first;id->bucket_size=bucket_size;
     id->seq=le64(p+112);id->version=version;rc=IFS_FS_OK;
 done:
     h->release(h->context,p);return rc;
