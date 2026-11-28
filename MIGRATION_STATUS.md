@@ -1,15 +1,5 @@
-# Bcachefs Common V2 migration status
+# Bcachefs Common V2 migration
 
-## Source and ownership
+Independent recognition implements native superblock layout, single-device membership, CRC32C/CRC64 (with native seed variants), copy identity and sequence selection, and length-bounded typed fields. Reference: [pinned original format and checksum code](https://github.com/Infiltrator-Projects/Filesystems/tree/101026021d9088d80b7f0f472d9061f0e2c688a3/native/filesystems/bcachefs). Original source attribution remains intact; new code is GPL-3.0-or-later.
 
-Source remains at [the pinned central tree](https://github.com/Infiltrator-Projects/Filesystems/tree/101026021d9088d80b7f0f472d9061f0e2c688a3/native/filesystems/bcachefs); original Linux v6.12.107-derived notices and licences must be preserved. Extract and adapt existing code, not replace it with empty stubs. New project-authored code uses GPL-3.0-or-later; inherited licensing remains intact. No source was transferred by this documentation commit.
-
-## Qualification plan
-
-1. Establish exact supported on-disk variants and validate geometry and feature flags; implement bounded CORE probe.
-2. Implement CORE mount, stat, list and read plus VOLUME query through the same native engine: superblocks, bkey B-trees, allocation, backpointers, journal, replicas and snapshots.
-3. Independently qualify clean single-device images first; reject unsupported multi-device, encryption and recovery states. Compare payloads and unchanged-image hashes; inject truncation, corruption and I/O faults.
-4. Expose mutation, format, check/repair and DEFRAG map/plan/execute/verify/recover only after format-specific allocation, ordering and interruption/recovery tests. Reject unsupported operations before writing.
-5. Validate exact packaged Common V2 ABI, hosted and import-free freestanding profiles, then actual BOOT and kernel consumer integration independently.
-
-All stages are pending in this repository. No capabilities or release are claimed. The [design and qualification reference](docs/Bcachefs.pdf) is available; the operational manual and packaging remain pending until an actual provider is qualified.
+CORE PROBE only. B-tree packed keys and root state, journal and snapshot visibility, allocation, namespace, checksummed payloads, mutation, defragmentation, recovery and physical BOOT/kernel qualification remain outstanding. Runtime publication is not attempted at this stage. Independent media and sanitizer results must be verified at the exact revision.
